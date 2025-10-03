@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking - CricketSync Collegiate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    🏏
+                </div>
+                <div class="logo-text">
+                    <h1>CricketSync</h1>
+                    <p>Collegiate</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="ticket-booking.html"><i class="fas fa-ticket-alt"></i> Ticket Booking</a></li>
+                <li><a href="team-ranking.html"><i class="fas fa-trophy"></i> Team Ranking</a></li>
+                <li><a href="player-ranking.html"><i class="fas fa-users"></i> Player Ranking</a></li>
+                <li><a href="your-tickets.html"><i class="fas fa-receipt"></i> Your Tickets</a></li>
+                <li><a href="admin-login.html" class="admin-link"><i class="fas fa-shield-alt"></i> Admin Panel</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header fade-in">
+            <h1>Book Your Cricket Tickets</h1>
+            <p>Secure your seats for upcoming college cricket matches</p>
+        </div>
+
+        <!-- Matches List -->
+        <div id="matches-container" class="fade-in">
+            <!-- Matches will be loaded here -->
+        </div>
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookingModal()">&times;</span>
+            
+            <h2 style="color: #2d6b3d; margin-bottom: 1.5rem; text-align: center;">Complete Your Booking</h2>
+            
+            <form onsubmit="submitBooking(event)">
+                <input type="hidden" id="match_id" name="match_id">
+                
+                <div id="match-details" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <!-- Match details will be populated by JavaScript -->
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Number of Tickets:</label>
+                    <select class="form-control" id="quantity" name="quantity" onchange="updateBookingTotal()">
+                        <option value="1">1 Ticket</option>
+                        <option value="2">2 Tickets</option>
+                        <option value="3">3 Tickets</option>
+                        <option value="4">4 Tickets</option>
+                        <option value="5">5 Tickets</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="holder_name">Full Name:</label>
+                    <input type="text" class="form-control" id="holder_name" name="holder_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="holder_email">Email:</label>
+                    <input type="email" class="form-control" id="holder_email" name="holder_email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="holder_phone">Phone Number:</label>
+                    <input type="tel" class="form-control" id="holder_phone" name="holder_phone">
+                </div>
+
+                <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+                    <div style="font-size: 1.2rem; font-weight: bold;">
+                        Total Amount: <span class="currency" id="total-amount">₹0</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-credit-card"></i> Confirm Booking
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

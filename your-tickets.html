@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tickets - CricketSync Collegiate</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    🏏
+                </div>
+                <div class="logo-text">
+                    <h1>CricketSync</h1>
+                    <p>Collegiate</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="ticket-booking.html"><i class="fas fa-ticket-alt"></i> Ticket Booking</a></li>
+                <li><a href="team-ranking.html"><i class="fas fa-trophy"></i> Team Ranking</a></li>
+                <li><a href="player-ranking.html"><i class="fas fa-users"></i> Player Ranking</a></li>
+                <li><a href="your-tickets.html"><i class="fas fa-receipt"></i> Your Tickets</a></li>
+                <li><a href="admin-login.html" class="admin-link"><i class="fas fa-shield-alt"></i> Admin Panel</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header fade-in">
+            <h1>Your Tickets</h1>
+            <p>View and manage your cricket match bookings</p>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="stats-grid fade-in" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 2rem;">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #007bff, #0056b3);">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <div class="stat-number" id="total-bookings">0</div>
+                <div class="stat-label">Total Bookings</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #28a745, #1e7e34);">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number" id="total-tickets">0</div>
+                <div class="stat-label">Total Tickets</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #6f42c1, #5a2d91);">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="stat-number" id="total-spent">₹0</div>
+                <div class="stat-label">Total Spent</div>
+            </div>
+        </div>
+
+        <!-- Tickets List -->
+        <div id="tickets-container" class="fade-in">
+            <!-- Tickets will be loaded here -->
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

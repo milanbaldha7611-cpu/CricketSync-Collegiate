@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CricketSync Collegiate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+
+        .admin-sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #2d6b3d 0%, #1a4a26 100%);
+            color: white;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar .logo {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .admin-sidebar .logo i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-sidebar .logo h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .admin-sidebar .logo p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .admin-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .admin-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-menu a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .admin-menu a:hover,
+        .admin-menu a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .admin-menu a i {
+            width: 30px;
+            font-size: 1.2rem;
+        }
+
+        .admin-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            color: #2d6b3d;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .admin-header .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .admin-header .logout-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .admin-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-section h2 {
+            color: #2d6b3d;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #2d6b3d 0%, #4caf50 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-action {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-card .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card.matches .icon { background: #e3f2fd; color: #2196f3; }
+        .stat-card.teams .icon { background: #f3e5f5; color: #9c27b0; }
+        .stat-card.players .icon { background: #fff3e0; color: #ff9800; }
+        .stat-card.tickets .icon { background: #e8f5e9; color: #4caf50; }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .stat-card .label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: 0;
+                padding: 0;
+            }
+            
+            .admin-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Admin Panel</h2>
+                <p>CricketSync Collegiate</p>
+            </div>
+
+            <ul class="admin-menu">
+                <li><a href="#dashboard" class="active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#matches" onclick="showSection('matches')">
+                    <i class="fas fa-calendar-alt"></i> Manage Matches
+                </a></li>
+                <li><a href="#teams" onclick="showSection('teams')">
+                    <i class="fas fa-users"></i> Manage Teams
+                </a></li>
+                <li><a href="#players" onclick="showSection('players')">
+                    <i class="fas fa-user-friends"></i> Manage Players
+                </a></li>
+                <li><a href="#rankings" onclick="showSection('rankings')">
+                    <i class="fas fa-trophy"></i> Update Rankings
+                </a></li>
+                <li><a href="index.html">
+                    <i class="fas fa-globe"></i> View Website
+                </a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="admin-section active">
+                <h2>Dashboard Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card matches">
+                        <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="value" id="stat-matches">0</div>
+                        <div class="label">Total Matches</div>
+                    </div>
+                    <div class="stat-card teams">
+                        <div class="icon"><i class="fas fa-users"></i></div>
+                        <div class="value" id="stat-teams">0</div>
+                        <div class="label">Total Teams</div>
+                    </div>
+                    <div class="stat-card players">
+                        <div class="icon"><i class="fas fa-user-friends"></i></div>
+                        <div class="value" id="stat-players">0</div>
+                        <div class="label">Total Players</div>
+                    </div>
+                    <div class="stat-card tickets">
+                        <div class="icon"><i class="fas fa-ticket-alt"></i></div>
+                        <div class="value" id="stat-tickets">0</div>
+                        <div class="label">Tickets Booked</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matches Section -->
+            <div id="matches-section" class="admin-section">
+                <h2><i class="fas fa-calendar-alt"></i> Manage Matches</h2>
+                
+                <form id="match-form" onsubmit="handleMatchSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Team 1 *</label>
+                            <input type="text" name="team1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Team 2 *</label>
+                            <input type="text" name="team2" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Match Date *</label>
+                            <input type="date" name="match_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Match Time *</label>
+                            <input type="time" name="match_time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Venue *</label>
+                            <input type="text" name="venue" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Match Status *</label>
+                            <select name="match_status" required>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="live">Live</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ticket Price (₹) *</label>
+                            <input type="number" name="ticket_price" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Seats *</label>
+                            <input type="number" name="total_seats" min="1" required>
+                        </div>
+                    </div>
+
+                    <!-- Scorecard (for completed matches) -->
+                    <div style="border-top: 2px solid #e0e0e0; margin: 2rem 0; padding-top: 2rem;">
+                        <h3 style="color: #666; margin-bottom: 1rem;">Scorecard (Optional - For Completed Matches)</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Team 1 Score</label>
+                                <input type="text" name="team1_score" placeholder="e.g., 234/7 (50 ov)">
+                            </div>
+                            <div class="form-group">
+                                <label>Team 2 Score</label>
+                                <input type="text" name="team2_score" placeholder="e.g., 186/10 (45.2 ov)">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Winner</label>
+                                <input type="text" name="winner" placeholder="Winning team name">
+                            </div>
+                            <div class="form-group">
+                                <label>Man of the Match</label>
+                                <input type="text" name="man_of_match">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Match Summary</label>
+                            <textarea name="match_summary" rows="3" placeholder="Brief summary of the match..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-plus"></i> Add Match
+                    </button>
+                </form>
+
+                <table class="data-table" id="matches-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Match</th>
+                            <th>Date & Time</th>
+                            <th>Venue</th>
+                            <th>Status</th>
+                            <th>Price</th>
+                            <th>Seats</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Teams Section -->
+            <div id="teams-section" class="admin-section">
+                <h2><i class="fas fa-users"></i> Manage Teams</h2>
+                
+                <form id="team-form" onsubmit="handleTeamSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Team Name *</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>College/Institution *</label>
+                            <input type="text" name="college" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Captain</label>
+                            <input type="text" name="captain">
+                        </div>
+                        <div class="form-group">
+                            <label>Coach</label>
+                            <input type="text" name="coach">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Matches Played</label>
+                            <input type="number" name="matches_played" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Matches Won</label>
+                            <input type="number" name="matches_won" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Matches Lost</label>
+                            <input type="number" name="matches_lost" min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Points</label>
+                            <input type="number" name="points" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Net Run Rate</label>
+                            <input type="number" name="net_run_rate" step="0.01" value="0.00">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-plus"></i> Add Team
+                    </button>
+                </form>
+
+                <table class="data-table" id="teams-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>College</th>
+                            <th>Played</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Points</th>
+                            <th>NRR</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Players Section -->
+            <div id="players-section" class="admin-section">
+                <h2><i class="fas fa-user-friends"></i> Manage Players</h2>
+                
+                <form id="player-form" onsubmit="handlePlayerSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Player Name *</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Team *</label>
+                            <input type="text" name="team" required>
+                        </div>
+                        <div class="form-group">
+                            <label>College *</label>
+                            <input type="text" name="college" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Role *</label>
+                            <select name="role" required>
+                                <option value="batsman">Batsman</option>
+                                <option value="bowler">Bowler</option>
+                                <option value="all_rounder">All Rounder</option>
+                                <option value="wicket_keeper">Wicket Keeper</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Matches Played</label>
+                            <input type="number" name="matches_played" min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Runs Scored</label>
+                            <input type="number" name="runs_scored" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Highest Score</label>
+                            <input type="number" name="highest_score" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Batting Average</label>
+                            <input type="number" name="batting_average" step="0.01" value="0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Wickets Taken</label>
+                            <input type="number" name="wickets_taken" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Best Bowling</label>
+                            <input type="text" name="best_bowling" placeholder="e.g., 5/34">
+                        </div>
+                        <div class="form-group">
+                            <label>Bowling Average</label>
+                            <input type="number" name="bowling_average" step="0.01" value="0.00">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-plus"></i> Add Player
+                    </button>
+                </form>
+
+                <table class="data-table" id="players-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Team</th>
+                            <th>Role</th>
+                            <th>Matches</th>
+                            <th>Runs</th>
+                            <th>Wickets</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Rankings Section -->
+            <div id="rankings-section" class="admin-section">
+                <h2><i class="fas fa-trophy"></i> Quick Update Rankings</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Use this form to quickly update team and player statistics after a match.</p>
+                
+                <form id="rankings-form" onsubmit="handleRankingsUpdate(event)">
+                    <h3 style="color: #2d6b3d; margin-bottom: 1rem;">Update Team Stats</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Team Name *</label>
+                            <input type="text" name="team_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Action *</label>
+                            <select name="action" required>
+                                <option value="win">Add Win</option>
+                                <option value="loss">Add Loss</option>
+                                <option value="points">Update Points</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Points to Add/Set</label>
+                            <input type="number" name="points_value" min="0" value="2">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sync"></i> Update Rankings
+                    </button>
+                </form>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 8px;">
+                    <h4 style="color: #2d6b3d; margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i> Quick Tips:</h4>
+                    <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
+                        <li>Rankings are automatically calculated based on points and net run rate</li>
+                        <li>Update team stats after each match to keep rankings current</li>
+                        <li>Player rankings are based on runs scored and wickets taken</li>
+                        <li>You can manually adjust all values in the Manage Teams/Players sections</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

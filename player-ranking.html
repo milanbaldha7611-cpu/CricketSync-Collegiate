@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Rankings - CricketSync Collegiate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    🏏
+                </div>
+                <div class="logo-text">
+                    <h1>CricketSync</h1>
+                    <p>Collegiate</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="ticket-booking.html"><i class="fas fa-ticket-alt"></i> Ticket Booking</a></li>
+                <li><a href="team-ranking.html"><i class="fas fa-trophy"></i> Team Ranking</a></li>
+                <li><a href="player-ranking.html"><i class="fas fa-users"></i> Player Ranking</a></li>
+                <li><a href="your-tickets.html"><i class="fas fa-receipt"></i> Your Tickets</a></li>
+                <li><a href="admin-login.html" class="admin-link"><i class="fas fa-shield-alt"></i> Admin Panel</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header fade-in">
+            <h1>Player Rankings</h1>
+            <p>Top performers in collegiate cricket championship</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="card fade-in" style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: center; gap: 1rem; padding: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-primary tab-btn" onclick="displayPlayerRankings('batting')">
+                    <i class="fas fa-baseball-ball"></i> Top Batsmen
+                </button>
+                <button class="btn btn-secondary tab-btn" onclick="displayPlayerRankings('bowling')">
+                    <i class="fas fa-running"></i> Top Bowlers
+                </button>
+                <button class="btn btn-secondary tab-btn" onclick="displayPlayerRankings('allround')">
+                    <i class="fas fa-users"></i> All Rounders
+                </button>
+            </div>
+        </div>
+
+        <!-- Player Rankings Table -->
+        <div class="card fade-in">
+            <div class="card-header">
+                <h2 class="card-title" id="ranking-title">
+                    <i class="fas fa-baseball-ball"></i> Leading Run Scorers
+                </h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="players-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Team</th>
+                            <th>Role</th>
+                            <th>Matches</th>
+                            <th>Runs</th>
+                            <th>Average</th>
+                            <th>High Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Player rankings will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
