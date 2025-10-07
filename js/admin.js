@@ -371,7 +371,7 @@ async function logout() {
     
     try {
         await fetch('php/admin_auth.php?logout=1');
-        window.location.href = 'admin-login.html';
+        window.location.href = 'index.html';
     } catch (error) {
         console.error('Logout error:', error);
     }
